@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang=“es”>
+<head>
+  <meta charset=“UTF-8”>
+  <title>Dashboard</title>
+</head>
+<body>
+
+  <h1>Dashboard</h1>
+
+  <p id=“info”>Cargando datos...</p>
+
+  <button onclick="logout()">Cerrar sesión</button>
+
+  <script>
+
+    fetch("/dashboard")
+      .then(res => res.json())
+      .then(data => {
+
+        document.getElementById("info").textContent =
+          `Bienvenido ${data.mensaje} | Rol: ${data.rol}`;
+
+      });
+
+    function logout() {
+
+      fetch("/auth/logout", {
+        method: "POST"
+      })
+      .then(() => {
+
+        window.location.href = "/login.html";
+
+      });
+
+    }
+
+  </script>
+
+</body>
+</html>
